@@ -126,6 +126,11 @@
                             <span class="col-8 text-left text-gray-700">Camera</span>
                             <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right"> <a href="#">Ver</a> </span>
                         </div>
+                        <hr class="sidebar-divider my-2">
+                        <div class="row">
+                            <span class="col-4 text-left text-gray-700">Atualização</span>
+                            <span class="col-8 mb-0 font-weight-bold text-gray-800 text-right"> {{date_format($plant->created_at, "d/m/Y H:i")}} </span>
+                        </div>
                     </div>
                 </div>
             </div>
