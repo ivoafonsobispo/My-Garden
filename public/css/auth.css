@@ -1,0 +1,49 @@
+body, html {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.bg-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../media/countryside.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+#auth-form {
+    padding: 8rem 8rem;
+}
+
+#h1-auth {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #4BA425;
+}
+
+#p-auth {
+    font-size: 1.7rem;
+    line-height: 2.5rem;
+    color: #a8aebb;
+}
+
+#auth-p-failed {
+    color: red;
+}
+
+#username::placeholder,
+#password::placeholder {
+    font-style: italic;
+}
+
+.btn {
+    width: 100%;
+    background-color: #4BA425 !important;
+    color: white !important;
+    transition: .3s ease-in-out !important;
+}
+
+.btn:hover {
+    background-color: #397B1D !important;
+}
