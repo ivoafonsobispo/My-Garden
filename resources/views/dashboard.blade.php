@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Vegetais (Quantidade)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Culturas (Quantidade)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-seedling fa-2x text-gray-300"></i>
@@ -41,8 +41,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temperatura (Diária)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">23ºC</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temperatura (Geral)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$general_sensor->temperature}}ºC</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-temperature-low fa-2x text-gray-300"></i>
@@ -58,8 +58,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Humidade (Diária)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">29%</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Humidade (Geral)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$general_sensor->humidity}}%</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-cloud-rain fa-2x text-gray-300"></i>
@@ -75,8 +75,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Hora</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">10:53</div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Hora (Registo)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{date_format($general_sensor->created_at, "H:i")}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clock fa-2x text-gray-300"></i>

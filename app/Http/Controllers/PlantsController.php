@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Plant;
 use Illuminate\Http\Request;
-use App\Http\Requests\StorePlantRequest;
 use Illuminate\Support\Facades\Validator;
 
 class PlantsController extends Controller

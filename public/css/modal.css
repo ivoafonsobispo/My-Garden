@@ -20,3 +20,12 @@
 #close-option {
     cursor: pointer;
 }
+
+.page-item.active .page-link {
+    background-color: #1cc88a !important;
+    border-color: #1cc88a !important;
+}
+
+.collapse-item.active {
+    color: #1cc88a !important;
+}
