@@ -86,9 +86,11 @@
             </div>
         </div>
     </div>
-    <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+    <div class="d-sm-flex align-items-center justify-content-between mt-3">
         <h1 class="h4 mb-0 text-gray-800">Informações das culturas</h1>
     </div>
+    <small class="mb-4 text-muted">*Os dados abaixo apresentados refletem o último registo efectuado às culturas.</small>
+    <br><br>
     <div class="row">
         @foreach ($plants as $plant)
             <div class="col-lg-4 mb-4">
