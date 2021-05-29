@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 
 // use App\Http\Controllers\DataController;
-// Uncomment this lines, and run "/data" to create the users.
+// //Uncomment this lines, and run "/data" to create the users.
 // Route::get('data', [DataController::class, 'create_users']);
 
 Route::middleware(['prevent.history'])->group(function () {

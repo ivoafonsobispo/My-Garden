@@ -11,7 +11,18 @@ class HistoryController extends Controller
     public function history_geral_temp()
     {
         $temperatures = GeneralSensor::orderBy("created_at", "DESC")->get();
-        return view('history-geral-temp', compact('temperatures'));
+        $temperatures_graph = GeneralSensor::orderBy("created_at", "ASC")->take(5)->get();
+
+        $data = [];
+
+        foreach($temperatures_graph as $temp) {
+            $data['label'][] = date_format($temp->created_at, "H:i");
+            $data['data'][] = (float) $temp->temperature;
+        }
+
+        $data['chart_data'] = json_encode($data);
+
+        return view('history-geral-temp', compact('temperatures', 'data'));
     }
 
     public function history_gereal_hum()

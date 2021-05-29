@@ -42,7 +42,13 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temperatura (Geral)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$general_sensor->temperature}}ºC</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @isset($general_sensor->temperature)
+                                    {{$general_sensor->temperature.'ºC'}}
+                                @else
+                                    -
+                                @endisset
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-temperature-low fa-2x text-gray-300"></i>
@@ -59,7 +65,13 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Humidade (Geral)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$general_sensor->humidity}}%</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @isset($general_sensor->humidity)
+                                    {{$general_sensor->humidity.'%'}}
+                                @else
+                                    -
+                                @endisset
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-cloud-rain fa-2x text-gray-300"></i>
@@ -76,7 +88,13 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Hora (Registo)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{date_format($general_sensor->created_at, "H:i")}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @isset($general_sensor->created_at)
+                                    {{date_format($general_sensor->created_at, "H:i")}}
+                                @else
+                                    -
+                                @endisset
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clock fa-2x text-gray-300"></i>
@@ -86,58 +104,60 @@
             </div>
         </div>
     </div>
-    <div class="d-sm-flex align-items-center justify-content-between mt-3">
-        <h1 class="h4 mb-0 text-gray-800">Informações das culturas</h1>
-    </div>
-    <small class="mb-4 text-muted">*Os dados abaixo apresentados refletem o último registo efectuado às culturas.</small>
-    <br><br>
-    <div class="row">
-        @foreach ($plants as $plant)
-            <div class="col-lg-4 mb-4">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary text-capitalize">{{$plant->name}}</h6>
+        <div class="d-sm-flex align-items-center justify-content-between mt-3">
+            <h1 class="h4 mb-0 text-gray-800">Informações das culturas</h1>
+        </div>
+        <small class="mb-4 text-muted">*Os dados abaixo apresentados refletem o último registo efectuado às culturas.</small>
+        <br><br>
+        <div class="row">
+            @foreach ($plants as $plant)
+                @isset($plant)
+                    <div class="col-lg-4 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-capitalize">{{$plant->name}}</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <span class="col-8 text-left text-gray-700">Luminosidade</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->luminosity}}%</span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
+                                    <span class="col-8 text-left text-gray-700">Temperatura</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->temperature}}ºC</span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
+                                    <span class="col-8 text-left text-gray-700">Humidade no solo</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->humidity}}%</span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
+                                    <span class="col-6 text-left text-gray-700">Rega</span>
+                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize {{($plant->watering) ? "text-success" : " text-danger"}}">{{($plant->watering) ? "Ligada" : " Desligada"}}</span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
+                                    <span class="col-6 text-left text-gray-700">Luz</span>
+                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize {{($plant->light) ? "text-success" : " text-danger"}}">{{($plant->light) ? "Ligada" : " Desligada"}}</span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
+                                    <span class="col-8 text-left text-gray-700">Camera</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right"> <a href="#">Ver</a> </span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
+                                    <span class="col-4 text-left text-gray-700">Atualização</span>
+                                    <span class="col-8 mb-0 font-weight-bold text-gray-800 text-right"> {{date_format($plant->created_at, "d/m/Y H:i")}} </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <span class="col-8 text-left text-gray-700">Luminosidade</span>
-                            <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->luminosity}}%</span>
-                        </div>
-                        <hr class="sidebar-divider my-2">
-                        <div class="row">
-                            <span class="col-8 text-left text-gray-700">Temperatura</span>
-                            <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->temperature}}ºC</span>
-                        </div>
-                        <hr class="sidebar-divider my-2">
-                        <div class="row">
-                            <span class="col-8 text-left text-gray-700">Humidade no solo</span>
-                            <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->humidity}}%</span>
-                        </div>
-                        <hr class="sidebar-divider my-2">
-                        <div class="row">
-                            <span class="col-6 text-left text-gray-700">Rega</span>
-                            <span class="col-6 mb-0 font-weight-bold text-right text-capitalize {{($plant->watering) ? "text-success" : " text-danger"}}">{{($plant->watering) ? "Ligada" : " Desligada"}}</span>
-                        </div>
-                        <hr class="sidebar-divider my-2">
-                        <div class="row">
-                            <span class="col-6 text-left text-gray-700">Luz</span>
-                            <span class="col-6 mb-0 font-weight-bold text-right text-capitalize {{($plant->light) ? "text-success" : " text-danger"}}">{{($plant->light) ? "Ligada" : " Desligada"}}</span>
-                        </div>
-                        <hr class="sidebar-divider my-2">
-                        <div class="row">
-                            <span class="col-8 text-left text-gray-700">Camera</span>
-                            <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right"> <a href="#">Ver</a> </span>
-                        </div>
-                        <hr class="sidebar-divider my-2">
-                        <div class="row">
-                            <span class="col-4 text-left text-gray-700">Atualização</span>
-                            <span class="col-8 mb-0 font-weight-bold text-gray-800 text-right"> {{date_format($plant->created_at, "d/m/Y H:i")}} </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
+                @endisset
+            @endforeach
+        </div>
 </div>
 <!-- End of container-fluid -->
 
