@@ -28,6 +28,13 @@
                                 Insira uma <i>password</i>, por favor.
                             </div>
                         </div>
+                        @error('failed')
+                            <div class="mt-0 mb-0 error-div text-center">
+                                <small class="text-danger">
+                                    <b>{{$message}}</b>
+                                </small>
+                            </div>
+                        @enderror
                         <button type="submit" class="btn mt-3">Iniciar Sessão</button>
                     </form>
                 </div>
@@ -51,6 +58,7 @@
 
             $("input").change(function() {
                 $("#auth-p-failed").remove();
+                $(".error-div").remove();
             });
         });
     </script>

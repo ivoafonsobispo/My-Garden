@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PlantsController extends Controller
 {
-    public function index()
-    {
-        $plants = Plant::all();
-        echo $plants;
-    }
-
     public function store(Request $request)
     {
         if ($request->has('name')) {
