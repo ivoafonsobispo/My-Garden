@@ -11,12 +11,12 @@ class HistoryController extends Controller
     public function history_geral_temp()
     {
         $temperatures = GeneralSensor::orderBy("created_at", "DESC")->get();
-        $temperatures_graph = GeneralSensor::orderBy("created_at", "ASC")->take(5)->get();
+        $temperatures_graph = GeneralSensor::orderBy("created_at", "ASC")->take(10)->get();
 
         $data = [];
 
         foreach($temperatures_graph as $temp) {
-            $data['label'][] = date_format($temp->created_at, "H:i");
+            $data['label'][] = date_format($temp->created_at, "D H:i");
             $data['data'][] = (float) $temp->temperature;
         }
 
@@ -28,7 +28,17 @@ class HistoryController extends Controller
     public function history_gereal_hum()
     {
         $humidities = GeneralSensor::orderBy("created_at", "DESC")->get();
-        return view('history-geral-hum', compact('humidities'));
+        $humidities_graph = GeneralSensor::orderBy("created_at", "ASC")->take(10)->get();
+
+        $data = [];
+
+        foreach($humidities_graph as $hum) {
+            $data['label'][] = date_format($hum->created_at, "D H:i");
+            $data['data'][] = (float) $hum->humidity;
+        }
+
+        $data['chart_data'] = json_encode($data);
+        return view('history-geral-hum', compact('humidities', 'data'));
     }
 
     public function history_hum()

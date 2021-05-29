@@ -119,13 +119,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <span class="col-8 text-left text-gray-700">Luminosidade</span>
-                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->luminosity}}%</span>
+                                    <span class="col-8 text-left text-gray-700">Temperatura</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->temperature}}ºC</span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
-                                    <span class="col-8 text-left text-gray-700">Temperatura</span>
-                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->temperature}}ºC</span>
+                                    <span class="col-8 text-left text-gray-700">Luminosidade</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->luminosity}}%</span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">

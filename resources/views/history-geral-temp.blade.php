@@ -8,12 +8,20 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h4 mb-0 text-gray-800">Histórico da temperatura geral</h1>
-        <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-secondary btn-icon-split btn-sm" title="Informações">
-            <span class="icon text-white-50">
-                <i class="fas fa-info-circle"></i>
-            </span>
-            <span class="text">Informações</span>
-        </a>
+        <div>
+            <a href="#graph-row" class="btn btn-success btn-icon-split btn-sm" title="Visualizar gráfico">
+                <span class="icon text-white-50">
+                    <i class="fas fa-chart-area"></i>
+                </span>
+                <span class="text">Visualizar gráfico</span>
+            </a>
+            <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-secondary btn-icon-split btn-sm" title="Informações">
+                <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <span class="text">Informações</span>
+            </a>
+        </div>
     </div>
     <!-- Approach -->
     <div class="card shadow mb-4">
@@ -42,11 +50,11 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xl-6 col-lg-6">
+    <div id="graph-row" class="row">
+        <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-success">Gráfico representativo da temperatura geral por hora</h6>
+                    <h6 class="m-0 font-weight-bold text-success">Gráfico representativo da temperatura geral (últimos 10 registos)</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
