@@ -11,7 +11,6 @@
 <script src="{{asset('/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
 <!-- Chart.js JavaScript-->
-<script src="{{asset('js/chart.js')}}"></script>
 <script src="{{asset('/vendor/chart-js/chart.min.js')}}"></script>
 <script src="{{asset('/vendor/chart-js/chart.bundle.min.js')}}"></script>
 

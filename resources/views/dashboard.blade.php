@@ -135,7 +135,9 @@
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
                                     <span class="col-6 text-left text-gray-700">Rega</span>
-                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize {{($plant->watering) ? "text-success" : " text-danger"}}">{{($plant->watering) ? "Ligada" : " Desligada"}}</span>
+                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
+                                        <a class="watering-btn {{($plant->watering) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->watering) ? "Ligada" : " Desligada"}}</a>
+                                    </span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
@@ -182,4 +184,39 @@
     </div>
 </div>
 <!-- End of Modal for more information  -->
+@section('scripts')
+<script>
+$(document).ready(function() {
+    $(".watering-btn").click(function(event) {
+        event.preventDefault();
+
+        var button = $(event.relatedTarget);
+        var anchor = $(this);
+        var info = this.text;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            }
+        });
+
+        $.ajax({
+            type: "put",
+            url: "/plant/update-webcam/"+anchor.data('planta'),
+            context: this,
+            success: function(data) {
+                if (info === "Ligada") {
+                    anchor.text("Desligada").removeClass("text-success").addClass("text-danger");
+                }else {
+                    anchor.text("Ligada").removeClass("text-danger").addClass("text-success");
+                }
+            },
+            error: function() {
+                alert("AJAX request error.");
+            }
+        });
+    });
+});
+</script>
+@endsection
 @endsection

@@ -91,6 +91,7 @@
 
 <!-- Begin of Scripts -->
 @section('scripts')
+<script src="{{asset('js/chart.js')}}"></script>
 <script>
     $(document).ready(function() {
         $('#table').DataTable({

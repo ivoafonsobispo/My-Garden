@@ -18,4 +18,15 @@ class DashboardController extends Controller
         $plants = array($cenoura, $alface, $tomate);
         return view('dashboard', compact('plants', 'general_sensor'));
     }
+
+    public function update_webcam(Plant $plant)
+    {
+        if ($plant->watering) {
+            Plant::where('id', $plant->id)->update(['watering' => 0]);
+        }else {
+            Plant::where('id', $plant->id)->update(['watering' => 1]);
+        }
+
+        return response()->json("Watering updated.", 201);
+    }
 }

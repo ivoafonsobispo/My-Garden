@@ -13,6 +13,7 @@ Route::middleware(['prevent.history'])->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('logout');
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::put('/plant/update-webcam/{plant}', [DashboardController::class, 'update_webcam']);
         Route::get('/historico/geral/temperatura', [HistoryController::class, 'history_geral_temp'])->name('history-geral.temp');
         Route::get('/historico/geral/humidade', [HistoryController::class, 'history_gereal_hum'])->name('history-geral.hum');
         Route::get('/historico/humidade', [HistoryController::class, 'history_hum'])->name('history.hum');
