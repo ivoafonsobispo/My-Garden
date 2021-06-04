@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlantsController;
-use App\Http\Controllers\WebcamController;
 use App\Http\Controllers\GeneralSensorController;
 
 Route::post('plants', [PlantsController::class, 'store']);
@@ -11,4 +10,4 @@ Route::post('plants', [PlantsController::class, 'store']);
 Route::post('general-sensor', [GeneralSensorController::class, 'store']);
 //usage: temperature=23&humidity=32
 
-Route::get('face-recognition', [WebcamController::class, 'face_recognition']);
+Route::get('watering', [PlantsController::class, 'watering']);

@@ -19,7 +19,7 @@ class DashboardController extends Controller
         return view('dashboard', compact('plants', 'general_sensor'));
     }
 
-    public function update_webcam(Plant $plant)
+    public function update_watering(Plant $plant)
     {
         if ($plant->watering) {
             Plant::where('id', $plant->id)->update(['watering' => 0]);

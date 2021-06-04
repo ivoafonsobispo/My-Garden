@@ -202,7 +202,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "put",
-            url: "/plant/update-webcam/"+anchor.data('planta'),
+            url: "/plant/update-watering/"+anchor.data('planta'),
             context: this,
             success: function(data) {
                 if (info === "Ligada") {

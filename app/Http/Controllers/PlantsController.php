@@ -36,4 +36,13 @@ class PlantsController extends Controller
 
         return response()->json($plant, 201);
     }
+
+    public function watering()
+    {
+        $cenoura = Plant::select("watering")->where("name", "cenouras")->orderBy("created_at", "DESC")->take(1)->first();
+        $alface = Plant::select("watering")->where("name", "alfaces")->orderBy("created_at", "DESC")->take(1)->first();
+        $tomate = Plant::select("watering")->where("name", "tomates")->orderBy("created_at", "DESC")->take(1)->first();
+        $plants_watering = array('cenoura_watering' => $cenoura, 'alface_watering' => $alface, 'tomate_watering' => $tomate);
+        return response()->json($plants_watering, 201);
+    }
 }
