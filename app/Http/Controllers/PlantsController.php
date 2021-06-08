@@ -45,4 +45,22 @@ class PlantsController extends Controller
         $plants_watering = array('cenoura_watering' => $cenoura, 'alface_watering' => $alface, 'tomate_watering' => $tomate);
         return response()->json($plants_watering, 201);
     }
+
+    public function get_info_tomates()
+    {
+        $tomate = Plant::where("name", "tomates")->orderBy("created_at", "DESC")->take(1)->first();
+        return response()->json($tomate, 201);
+    }
+
+    public function get_info_cenouras()
+    {
+        $cenoura = Plant::where("name", "cenouras")->orderBy("created_at", "DESC")->take(1)->first();
+        return response()->json($cenoura, 201);
+    }
+
+    public function get_info_alfaces()
+    {
+        $alface = Plant::where("name", "alfaces")->orderBy("created_at", "DESC")->take(1)->first();
+        return response()->json($alface, 201);
+    }
 }
