@@ -20,4 +20,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    // public function entrance(){
+    //     return $this->belongsTo("App\Models\User","id","idUser");
+    // }
 }

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlantsController;
 use App\Http\Controllers\GeneralSensorController;
+use App\Http\Controllers\EntranceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ Route::post('plants', [PlantsController::class, 'store']);
 Route::get('cenouras', [PlantsController::class, 'get_info_cenouras']);
 Route::get('alfaces', [PlantsController::class, 'get_info_alfaces']);
 Route::get('tomates', [PlantsController::class, 'get_info_tomates']);
+
 Route::post('general-sensor', [GeneralSensorController::class, 'store']);
 //usage: temperature=23&humidity=32
 Route::get('watering', [PlantsController::class, 'watering']);
+
+//usage: name="José Areia"
+Route::post('entrance', [EntranceController::class, 'entrance']);
