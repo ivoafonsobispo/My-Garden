@@ -21,7 +21,7 @@ class PlantsController extends Controller
             'humidity' => 'required|numeric|between:-100,100',
             'light' => 'required|boolean',
             'watering' => 'required|boolean',
-            'photo' => 'required',
+            // 'photo' => 'required',
         ],
         $messages = [
             'name.in' => 'The selected name is invalid. Valid options are \'alfaces\', \'cenouras\' and \'tomates\'.',
@@ -34,7 +34,7 @@ class PlantsController extends Controller
             $plant = Plant::create($request->all());
         }
 
-        return response()->json($plant, 201);
+        return response()->json("Registo POST guardado com sucesso!", 201);
     }
 
     public function watering()
