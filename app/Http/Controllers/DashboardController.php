@@ -30,7 +30,7 @@ class DashboardController extends Controller
         }else {
             Plant::where('id', $plant->id)->update(['watering' => 1]);
         }
-        return response()->json("Watering updated.", 201);
+        return response()->json("Watering updated.", 200);
     }
 
     public function update_light(Plant $plant)
@@ -44,7 +44,7 @@ class DashboardController extends Controller
         }else {
             Plant::where('id', $plant->id)->update(['light' => 1]);
         }
-        return response()->json("Light state updated.", 201);
+        return response()->json("Light state updated.", 200);
     }
 
     public function update_window(Plant $plant)
@@ -58,6 +58,6 @@ class DashboardController extends Controller
         }else {
             Plant::where('id', $plant->id)->update(['window_state' => 0]);
         }
-        return response()->json("Window state updated.", 201);
+        return response()->json("Window state updated.", 200);
     }
 }
