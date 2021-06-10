@@ -30,4 +30,5 @@ Route::post('general-sensor', [GeneralSensorController::class, 'store']);
 //usage: name="José Areia"
 Route::post('entrance', [EntranceController::class, 'entrance']);
 
-Route::post('open-door-server', [EntranceController::class, 'open_door_server']);
+Route::post('change-door-server', [EntranceController::class, 'change_door_server']);
+Route::get('get-state-door', [EntranceController::class, 'get_state_door']);

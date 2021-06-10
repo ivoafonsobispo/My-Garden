@@ -3,8 +3,8 @@ import face_recognition
 import requests
 
 def send_to_api(array):
-    r = requests.post('http://my-garden.test/api/open-door-server', data=array)
-    if r.status_code == 201:
+    r = requests.post('http://my-garden.test/api/change-door-server', data=array)
+    if r.status_code == 200:
         print(r.json())
     else:
         print("ERRO: Não foi possível realizar o pedido")
@@ -45,10 +45,10 @@ known_faces = [
 
 results = face_recognition.compare_faces(known_faces, unknown_face_encoding)
 
-if results[0]:
+if results[0] == True:
     array = {'name':'José Areia', 'value':'1'}
     send_to_api(array)
-elif results[1]:
+elif results[1] == True:
     array = {'name':'Ivo Bispo', 'value':'1'}
     send_to_api(array)
 else:
