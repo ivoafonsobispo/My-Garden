@@ -21,6 +21,6 @@ class GeneralSensorController extends Controller
             $general_sensor = GeneralSensor::create($request->all());
         }
 
-        return response()->json($general_sensor, 201);
+        return response()->json("Registo dos valores feito com sucesso!", 201);
     }
 }

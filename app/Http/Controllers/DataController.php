@@ -22,6 +22,6 @@ class DataController extends Controller
         $user->password = Hash::make("jojo");
         $user->save();
 
-        return view('auth.login');
+        return redirect('/login');
     }
 }

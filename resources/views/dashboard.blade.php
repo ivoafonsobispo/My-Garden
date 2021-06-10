@@ -134,6 +134,11 @@
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                    <span class="col-8 text-left text-gray-700">Vento</span>
+                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->wind}} km/h</span>
+                                </div>
+                                <hr class="sidebar-divider my-2">
+                                <div class="row">
                                     <span class="col-6 text-left text-gray-700">Rega</span>
                                     <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
                                         <a class="watering-btn {{($plant->watering) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->watering) ? "Ligada" : " Desligada"}}</a>
@@ -142,12 +147,16 @@
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
                                     <span class="col-6 text-left text-gray-700">Luz</span>
-                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize {{($plant->light) ? "text-success" : " text-danger"}}">{{($plant->light) ? "Ligada" : " Desligada"}}</span>
+                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
+                                        <a class="light-btn {{($plant->light) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->light) ? "Ligada" : " Desligada"}}</a>
+                                    </span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
-                                    <span class="col-8 text-left text-gray-700">Camera</span>
-                                    <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right"> <a href="#">Ver</a> </span>
+                                    <span class="col-6 text-left text-gray-700">Janela</span>
+                                    <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
+                                        <a class="window-btn {{($plant->window_state) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->window_state) ? "Aberta" : " Fechada"}}</a>
+                                    </span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
@@ -187,6 +196,7 @@
 @section('scripts')
 <script>
 $(document).ready(function() {
+    // AJAX Request para a atualização do estado da rega
     $(".watering-btn").click(function(event) {
         event.preventDefault();
 
@@ -212,7 +222,69 @@ $(document).ready(function() {
                 }
             },
             error: function() {
-                alert("AJAX request error.");
+                alert("Não é possível desligar a rega, porque o valor da humidade está abaixo de 20%.");
+            }
+        });
+    });
+
+    // AJAX Request para a atualização do estado da luz
+    $(".light-btn").click(function(event) {
+        event.preventDefault();
+
+        var button = $(event.relatedTarget);
+        var anchor = $(this);
+        var info = this.text;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            }
+        });
+
+        $.ajax({
+            type: "put",
+            url: "/plant/update-light/"+anchor.data('planta'),
+            context: this,
+            success: function(data) {
+                if (info === "Ligada") {
+                    anchor.text("Desligada").removeClass("text-success").addClass("text-danger");
+                }else {
+                    anchor.text("Ligada").removeClass("text-danger").addClass("text-success");
+                }
+            },
+            error: function() {
+                alert("Não é possível desligar a luz, porque o valor da luminosidade está abaixo de 30%.");
+            }
+        });
+    });
+
+    // AJAX Request para a atualização do estado da janela
+    $(".window-btn").click(function(event) {
+        event.preventDefault();
+
+        var button = $(event.relatedTarget);
+        var anchor = $(this);
+        var info = this.text;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            }
+        });
+
+        $.ajax({
+            type: "put",
+            url: "/plant/update-window/"+anchor.data('planta'),
+            context: this,
+            success: function(data) {
+                if (info === "Aberta") {
+                    anchor.text("Fechada").removeClass("text-success").addClass("text-danger");
+                }else {
+                    anchor.text("Aberta").removeClass("text-danger").addClass("text-success");
+                }
+            },
+            error: function() {
+                alert("Não é possível abrir a janela, porque a velocidade do vento está acima de 10 km/h.");
             }
         });
     });

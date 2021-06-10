@@ -5,15 +5,17 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HistoryController;
 
-// use App\Http\Controllers\DataController;
-// //Uncomment this lines, and run "/data" to create the users.
-// Route::get('data', [DataController::class, 'create_users']);
+use App\Http\Controllers\DataController;
+//Uncomment this lines, and run "/data" to create the users.
+Route::get('data', [DataController::class, 'create_users']);
 
 Route::middleware(['prevent.history'])->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('logout');
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::put('/plant/update-watering/{plant}', [DashboardController::class, 'update_watering']);
+        Route::put('/plant/update-light/{plant}', [DashboardController::class, 'update_light']);
+        Route::put('/plant/update-window/{plant}', [DashboardController::class, 'update_window']);
         Route::get('/historico/geral/temperatura', [HistoryController::class, 'history_geral_temp'])->name('history-geral.temp');
         Route::get('/historico/geral/humidade', [HistoryController::class, 'history_gereal_hum'])->name('history-geral.hum');
         Route::get('/historico/humidade', [HistoryController::class, 'history_hum'])->name('history.hum');

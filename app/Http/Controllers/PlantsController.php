@@ -19,9 +19,10 @@ class PlantsController extends Controller
             'temperature' => 'required|numeric|between:-100,100',
             'luminosity' => 'required|numeric|between:-100,100',
             'humidity' => 'required|numeric|between:-100,100',
+            'wind' => 'required|numeric|between:-100,100',
             'light' => 'required|boolean',
             'watering' => 'required|boolean',
-            // 'photo' => 'required',
+            'window_state' => 'required|boolean'
         ],
         $messages = [
             'name.in' => 'The selected name is invalid. Valid options are \'alfaces\', \'cenouras\' and \'tomates\'.',
@@ -35,15 +36,6 @@ class PlantsController extends Controller
         }
 
         return response()->json("Registo POST guardado com sucesso!", 201);
-    }
-
-    public function watering()
-    {
-        $cenoura = Plant::select("watering")->where("name", "cenouras")->orderBy("created_at", "DESC")->take(1)->first();
-        $alface = Plant::select("watering")->where("name", "alfaces")->orderBy("created_at", "DESC")->take(1)->first();
-        $tomate = Plant::select("watering")->where("name", "tomates")->orderBy("created_at", "DESC")->take(1)->first();
-        $plants_watering = array('cenoura_watering' => $cenoura, 'alface_watering' => $alface, 'tomate_watering' => $tomate);
-        return response()->json($plants_watering, 201);
     }
 
     public function get_info_tomates()

@@ -20,6 +20,6 @@ class EntranceController extends Controller
             $entrance_person = Entrance::create($request->all());
         }
 
-        return response()->json($entrance_person, 201);
+        return response()->json("Registo da entrada feito com sucesso!", 201);
     }
 }

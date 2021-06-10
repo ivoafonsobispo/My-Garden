@@ -14,9 +14,10 @@ class Plants extends Migration
             $table->float('temperature');
             $table->float('luminosity');
             $table->float('humidity');
+            $table->float('wind');
             $table->boolean('light');
             $table->boolean('watering');
-            // $table->string('photo');
+            $table->boolean('window_state');
             $table->timestamps();
         });
     }

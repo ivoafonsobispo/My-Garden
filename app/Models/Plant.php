@@ -14,8 +14,9 @@ class Plant extends Model
         'temperature',
         'luminosity',
         'humidity',
+        'wind',
         'light',
         'watering',
-        'photo'
+        'window_state'
     ];
 }
