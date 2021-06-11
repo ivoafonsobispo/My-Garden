@@ -30,15 +30,7 @@
                             <th>Data e Hora</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($temperatures as $temperature)
-                        <tr>
-                            <td>{{$temperature->temperature}}ºC</td>
-                            <td class="text-capitalize">{{$temperature->name}}</td>
-                            <td>{{date_format($temperature->created_at, "d/m/Y H:i")}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -72,7 +64,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('#table').DataTable({
+        var table = $('#table').DataTable({
             "language": {
                 "sEmptyTable": "Não foi encontrado nenhum registo",
                 "sLoadingRecords": "A carregar...",
@@ -97,6 +89,31 @@
                 }
             },
             "order": [],
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "{{ route('api.temp') }}",
+            context: this,
+            success: function(data) {
+                table.clear().draw();
+                for (var i = 0; i < data.length; i++) {
+                    table.row.add([
+                        data[i].temperature+"ºC",
+                        data[i].name,
+                        data[i].created_at
+                    ]).draw();
+                }
+            },
+            error: function() {
+                alert("Erro no pedido GET. Tente outra vez.");
+            }
         });
     });
 </script>

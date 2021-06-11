@@ -4,13 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\GeneralSensor;
 use App\Models\Plant;
+use App\Models\User;
+use App\Models\Entrance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class HistoryController extends Controller
 {
-    public function history_geral_temp()
+    // Funções provenientes das rotas "web.php"
+    public function history_general_temp()
     {
-        $temperatures = GeneralSensor::orderBy("created_at", "DESC")->get();
+        return view('history-geral-temp');
+    }
+
+    public function history_general_hum()
+    {
+        return view('history-geral-hum');
+    }
+
+    public function history_hum()
+    {
+        return view('history-hum');
+    }
+
+    public function history_lum()
+    {
+        return view('history-lum');
+    }
+
+    public function history_temp()
+    {
+        return view('history-temp');
+    }
+
+    public function history_wind()
+    {
+        return view('history-wind');
+    }
+
+    public function history_alfaces()
+    {
+        return view('history-alfaces');
+    }
+
+    public function history_cenouras()
+    {
+        return view('history-cenouras');
+    }
+
+    public function history_tomates()
+    {
+        return view('history-tomates');
+    }
+
+    // Funções provenientes das rotas "api.php"
+    public function history_general_temp_api()
+    {
+        $temperatures = DB::table('general_sensors')->select('temperature', 'created_at')->orderBy("created_at", "DESC")->get();
         $temperatures_graph = GeneralSensor::orderBy("created_at", "ASC")->take(10)->get();
 
         $data = [];
@@ -22,12 +73,17 @@ class HistoryController extends Controller
 
         $data['chart_data'] = json_encode($data);
 
-        return view('history-geral-temp', compact('temperatures', 'data'));
+        $all_data = [
+            'temperatures' => $temperatures,
+            'chart' => $data
+        ];
+
+        return response()->json($all_data, 201);
     }
 
-    public function history_gereal_hum()
+    public function history_general_hum_api()
     {
-        $humidities = GeneralSensor::orderBy("created_at", "DESC")->get();
+        $humidities = DB::table('general_sensors')->select('humidity', 'created_at')->orderBy("created_at", "DESC")->get();
         $humidities_graph = GeneralSensor::orderBy("created_at", "ASC")->take(10)->get();
 
         $data = [];
@@ -38,42 +94,87 @@ class HistoryController extends Controller
         }
 
         $data['chart_data'] = json_encode($data);
-        return view('history-geral-hum', compact('humidities', 'data'));
+
+        $all_data = [
+            'humidities' => $humidities,
+            'chart' => $data
+        ];
+
+        return response()->json($all_data, 201);
     }
 
-    public function history_hum()
+    public function history_hum_api()
     {
-        $humidities = Plant::orderBy("created_at", "DESC")->get();
-        return view('history-hum', compact('humidities'));
+        $humidities = DB::table('plants')->select('humidity', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
+        foreach ($humidities as $hum) {
+            $hum->name = ucfirst($hum->name);
+        }
+        return response()->json($humidities, 201);
     }
 
-    public function history_lum()
+    public function history_lum_api()
     {
-        $luminosities = Plant::orderBy("created_at", "DESC")->get();
-        return view('history-lum', compact('luminosities'));
+        $luminosities = DB::table('plants')->select('luminosity', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
+        foreach ($luminosities as $lum) {
+            $lum->name = ucfirst($lum->name);
+        }
+        return response()->json($luminosities, 201);
     }
 
-    public function history_temp()
+    public function history_temp_api()
     {
-        $temperatures = Plant::orderBy("created_at", "DESC")->get();
-        return view('history-temp', compact('temperatures'));
+        $temperatures = DB::table('plants')->select('temperature', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
+        foreach ($temperatures as $temp) {
+            $temp->name = ucfirst($temp->name);
+        }
+        return response()->json($temperatures, 201);
     }
 
-    public function history_alfaces()
+    public function history_wind_api()
     {
-        $alfaces = Plant::where('name', 'alfaces')->orderBy("created_at", "DESC")->get();
-        return view('history-alfaces', compact('alfaces'));
+        $winds = DB::table('plants')->select('wind', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
+        foreach ($winds as $wind) {
+            $wind->name = ucfirst($wind->name);
+        }
+        return response()->json($winds, 201);
     }
 
-    public function history_cenouras()
+    public function history_alfaces_api()
     {
-        $cenouras = Plant::where('name', 'cenouras')->orderBy("created_at", "DESC")->get();
-        return view('history-cenouras', compact('cenouras'));
+        $alfaces = DB::table('plants')->where('name', 'alfaces')->orderBy("created_at", "DESC")->get();
+        foreach ($alfaces as $alface) {
+            $alface->watering ? $alface->watering = "Ligada" : $alface->watering = "Desligada";
+            $alface->light ? $alface->light = "Ligada" : $alface->light = "Desligada";
+            $alface->window_state ? $alface->window_state = "Aberta" : $alface->window_state = "Fechada";
+        }
+        return response()->json($alfaces, 201);
     }
 
-    public function history_tomates()
+    public function history_cenouras_api()
     {
-        $tomates = Plant::where('name', 'tomates')->orderBy("created_at", "DESC")->get();
-        return view('history-tomates', compact('tomates'));
+        $cenouras = DB::table('plants')->where('name', 'cenouras')->orderBy("created_at", "DESC")->get();
+        foreach ($cenouras as $cenoura) {
+            $cenoura->watering ? $cenoura->watering = "Ligada" : $cenoura->watering = "Desligada";
+            $cenoura->light ? $cenoura->light = "Ligada" : $cenoura->light = "Desligada";
+            $cenoura->window_state ? $cenoura->window_state = "Aberta" : $cenoura->window_state = "Fechada";
+        }
+        return response()->json($cenouras, 201);
+    }
+
+    public function history_tomates_api()
+    {
+        $tomates = DB::table('plants')->where('name', 'tomates')->orderBy("created_at", "DESC")->get();
+        foreach ($tomates as $tomate) {
+            $tomate->watering ? $tomate->watering = "Ligada" : $tomate->watering = "Desligada";
+            $tomate->light ? $tomate->light = "Ligada" : $tomate->light = "Desligada";
+            $tomate->window_state ? $tomate->window_state = "Aberta" : $tomate->window_state = "Fechada";
+        }
+        return response()->json($tomates, 201);
+    }
+
+    public function history_user_entrance(User $user)
+    {
+        $user_log = Entrance::where("name", $user->name)->get();
+        return view('history-entrance', compact('user_log'));
     }
 }

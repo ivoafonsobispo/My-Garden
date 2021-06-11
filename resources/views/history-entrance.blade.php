@@ -1,13 +1,13 @@
 @extends('layout.master')
 <!-- Page Title -->
-@section('title', 'Histórico das cenouras')
+@section('title', 'Histórico das entradas')
 <!-- Page Content -->
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h4 mb-0 text-gray-800">Histórico das cenouras</h1>
+        <h1 class="h4 mb-0 text-gray-800">Histórico das entradas</h1>
         <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-secondary btn-icon-split btn-sm" title="Informações">
             <span class="icon text-white-50">
                 <i class="fas fa-info-circle"></i>
@@ -18,24 +18,27 @@
     <!-- Approach -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-success">Listagem do histórico das cenouras</h6>
+            <h6 class="m-0 font-weight-bold text-success">Listagem do histórico das entradas do utilizador {{Auth::user()->name}}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive p-1">
                 <table class="table table-bordered table-striped" id="table" width="100%">
                     <thead>
                         <tr>
-                            <th>Temp.</th>
-                            <th>Lum.</th>
-                            <th>Humidade</th>
-                            <th>Vento</th>
-                            <th>Rega</th>
-                            <th>Luz</th>
-                            <th>Janela</th>
-                            <th>Data e Hora</th>
+                            <th>Número de entrada</th>
+                            <th>Data</th>
+                            <th>Hora</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach ($user_log as $log)
+                        <tr>
+                            <td>{{$log->id}}</td>
+                            <td>{{date_format($log->created_at, "d/m/Y")}}</td>
+                            <td>{{date_format($log->created_at, "H:i:s")}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -69,7 +72,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        var table = $('#table').DataTable({
+        $('#table').DataTable({
             "language": {
                 "sEmptyTable": "Não foi encontrado nenhum registo",
                 "sLoadingRecords": "A carregar...",
@@ -94,36 +97,6 @@
                 }
             },
             "order": [],
-        });
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': "{{csrf_token()}}"
-            }
-        });
-
-        $.ajax({
-            type: "get",
-            url: "{{ route('api.cenouras') }}",
-            context: this,
-            success: function(data) {
-                table.clear().draw();
-                for (var i = 0; i < data.length; i++) {
-                    table.row.add([
-                        data[i].temperature+"ºC",
-                        data[i].luminosity+"%",
-                        data[i].humidity+"%",
-                        data[i].wind+" km/s",
-                        data[i].watering,
-                        data[i].light,
-                        data[i].window_state,
-                        data[i].created_at
-                    ]).draw();
-                }
-            },
-            error: function() {
-                alert("Erro no pedido GET. Tente outra vez.");
-            }
         });
     });
 </script>
