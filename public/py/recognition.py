@@ -1,12 +1,21 @@
 import face_recognition
 import cv2 as cv
 import requests
+import time
 
 # Função que envia os dados acerca do reconhecimento facial para a API
 def send_to_api(array):
     r = requests.post('http://my-garden.test/api/change-door-server', data=array)
     if r.status_code == 200:
         print(r.json())
+    else:
+        print("ERRO: Não foi possível realizar o pedido")
+
+# Função que envia os dados acerca do reconhecimento facial para a API
+def get_door_state():
+    r = requests.get('http://my-garden.test/api/get-state-door')
+    if r.status_code == 200:
+        return r.json()
     else:
         print("ERRO: Não foi possível realizar o pedido")
 
@@ -69,6 +78,13 @@ try:
         send_to_api(array)
     else:
         print("O sistemas não consegui-o reconhecer a sua cara.")
+
+    time.sleep(7)
+
+    door_state = get_door_state()
+    if door_state == False:
+        print("Aviso! A porta foi fechada.")
+
 except KeyboardInterrupt:
     print("\nProgama terminado pelo utilizador!")
 finally:

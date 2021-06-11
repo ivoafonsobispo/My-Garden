@@ -51,6 +51,6 @@ class EntranceController extends Controller
                 return response()->json($user, 200);
             }
         }
-        return response()->json(NULL, 200);
+        return response()->json(False, 200);
     }
 }
