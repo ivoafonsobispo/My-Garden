@@ -25,26 +25,17 @@
                 <table class="table table-bordered table-striped" id="table" width="100%">
                     <thead>
                         <tr>
-                            <th>Temperatura</th>
-                            <th>Luminosidade</th>
+                            <th>Temp.</th>
+                            <th>Lum.</th>
                             <th>Humidade</th>
+                            <th>Vento</th>
                             <th>Rega</th>
                             <th>Luz</th>
+                            <th>Janela</th>
                             <th>Data e Hora</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($alfaces as $alface)
-                        <tr>
-                            <td>{{$alface->temperature}}ºC</td>
-                            <td>{{$alface->luminosity}}%</td>
-                            <td>{{$alface->humidity}}%</td>
-                            <td class="{{($alface->watering) ? "text-success" : " text-danger"}}">{{($alface->watering) ? "Ligada" : " Desligada"}}</td>
-                            <td class="{{($alface->light) ? "text-success" : " text-danger"}}">{{($alface->light) ? "Ligada" : " Desligada"}}</td>
-                            <td>{{date_format($alface->created_at, "d/m/Y H:i")}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -78,7 +69,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('#table').DataTable({
+        var table = $('#table').DataTable({
             "language": {
                 "sEmptyTable": "Não foi encontrado nenhum registo",
                 "sLoadingRecords": "A carregar...",
@@ -103,6 +94,36 @@
                 }
             },
             "order": [],
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "{{ route('api.alfaces') }}",
+            context: this,
+            success: function(data) {
+                table.clear().draw();
+                for (var i = 0; i < data.length; i++) {
+                    table.row.add([
+                        data[i].temperature+"ºC",
+                        data[i].luminosity+"%",
+                        data[i].humidity+"%",
+                        data[i].wind+" km/s",
+                        data[i].watering,
+                        data[i].light,
+                        data[i].window_state,
+                        data[i].created_at
+                    ]).draw();
+                }
+            },
+            error: function() {
+                alert("Erro no pedido GET. Tente outra vez.");
+            }
         });
     });
 </script>

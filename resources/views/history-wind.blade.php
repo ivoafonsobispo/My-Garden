@@ -1,13 +1,13 @@
 @extends('layout.master')
 <!-- Page Title -->
-@section('title', 'Histórico das cenouras')
+@section('title', 'Histórico da velociade do vento')
 <!-- Page Content -->
 @section('content')
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h4 mb-0 text-gray-800">Histórico das cenouras</h1>
+        <h1 class="h4 mb-0 text-gray-800">Histórico da velociade do vento</h1>
         <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-secondary btn-icon-split btn-sm" title="Informações">
             <span class="icon text-white-50">
                 <i class="fas fa-info-circle"></i>
@@ -18,20 +18,15 @@
     <!-- Approach -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-success">Listagem do histórico das cenouras</h6>
+            <h6 class="m-0 font-weight-bold text-success">Listagem do histórico da velocidade do vento</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive p-1">
                 <table class="table table-bordered table-striped" id="table" width="100%">
                     <thead>
                         <tr>
-                            <th>Temp.</th>
-                            <th>Lum.</th>
-                            <th>Humidade</th>
-                            <th>Vento</th>
-                            <th>Rega</th>
-                            <th>Luz</th>
-                            <th>Janela</th>
+                            <th>Valor</th>
+                            <th>Cultura associada</th>
                             <th>Data e Hora</th>
                         </tr>
                     </thead>
@@ -104,19 +99,14 @@
 
         $.ajax({
             type: "get",
-            url: "{{ route('api.cenouras') }}",
+            url: "{{ route('api.wind') }}",
             context: this,
             success: function(data) {
                 table.clear().draw();
                 for (var i = 0; i < data.length; i++) {
                     table.row.add([
-                        data[i].temperature+"ºC",
-                        data[i].luminosity+"%",
-                        data[i].humidity+"%",
-                        data[i].wind+" km/s",
-                        data[i].watering,
-                        data[i].light,
-                        data[i].window_state,
+                        data[i].wind+" km/h",
+                        data[i].name,
                         data[i].created_at
                     ]).draw();
                 }

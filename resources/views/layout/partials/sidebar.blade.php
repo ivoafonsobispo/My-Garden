@@ -40,16 +40,17 @@
     <li class="sidebar-heading">
         Histórico Específico
     </li>
-    <li class="nav-item @if (Route::is('history.hum') || Route::is('history.lum') || Route::is('history.temp')) active @endif">
+    <li class="nav-item @if (Route::is('history.hum') || Route::is('history.lum') || Route::is('history.temp') || Route::is('history.wind')) active @endif">
         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-screwdriver"></i>
             <span>Sensores</span>
         </a>
-        <div id="collapseTwo" class="collapse @if (Route::is('history.hum') || Route::is('history.lum') || Route::is('history.temp')) show @endif" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse @if (Route::is('history.hum') || Route::is('history.lum') || Route::is('history.temp') || Route::is('history.wind')) show @endif" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{Route::is('history.hum') ? 'active' : ''}}" href="{{route('history.hum')}}">Humidade</a>
                 <a class="collapse-item {{Route::is('history.lum') ? 'active' : ''}}" href="{{route('history.lum')}}">Luminosidade</a>
                 <a class="collapse-item {{Route::is('history.temp') ? 'active' : ''}}" href="{{route('history.temp')}}">Temperatura</a>
+                <a class="collapse-item {{Route::is('history.wind') ? 'active' : ''}}" href="{{route('history.wind')}}">Vento</a>
             </div>
         </div>
     </li>
