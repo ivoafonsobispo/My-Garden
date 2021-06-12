@@ -8,12 +8,20 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h4 mb-0 text-gray-800">Histórico das entradas</h1>
-        <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-secondary btn-icon-split btn-sm" title="Informações">
-            <span class="icon text-white-50">
-                <i class="fas fa-info-circle"></i>
-            </span>
-            <span class="text">Informações</span>
-        </a>
+        <div>
+            <a href="#" onclick="window.open('{{url('/py/face.jpg')}}', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false;" class="btn btn-success btn-icon-split btn-sm" title="Informações">
+                <span class="icon text-white-50">
+                    <i class="fas fa-camera"></i>
+                </span>
+                <span class="text">Foto da última entrada na server room</span>
+            </a>
+            <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-secondary btn-icon-split btn-sm" title="Informações">
+                <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <span class="text">Informações</span>
+            </a>
+        </div>
     </div>
     <!-- Approach -->
     <div class="card shadow mb-4">
