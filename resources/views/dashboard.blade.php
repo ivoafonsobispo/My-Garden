@@ -43,6 +43,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Temperatura (Geral)</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
+                              <!-- verifica se existe, se sim apresenta -->
                                 @isset($general_sensor->temperature)
                                     {{$general_sensor->temperature.'ºC'}}
                                 @else
@@ -66,6 +67,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Humidade (Geral)</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
+                              <!-- verifica se existe, se sim apresenta -->
                                 @isset($general_sensor->humidity)
                                     {{$general_sensor->humidity.'%'}}
                                 @else
@@ -89,6 +91,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Hora (Registo)</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
+                              <!-- verifica se existe, se sim apresenta -->
                                 @isset($general_sensor->created_at)
                                     {{date_format($general_sensor->created_at, "H:i")}}
                                 @else
@@ -110,35 +113,42 @@
         <small class="mb-4 text-muted">*Os dados abaixo apresentados refletem o último registo efectuado às culturas.</small>
         <br><br>
         <div class="row">
+          <!-- para cada cultura existente cria uma nova card -->
             @foreach ($plants as $plant)
                 @isset($plant)
                     <div class="col-lg-4 mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
+                              <!-- coloca o nome -->
                                 <h6 class="m-0 font-weight-bold text-primary text-capitalize">{{$plant->name}}</h6>
                             </div>
                             <div class="card-body">
                                 <div class="row">
+                                  <!-- escreve a temperatura -->
                                     <span class="col-8 text-left text-gray-700">Temperatura</span>
                                     <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->temperature}}ºC</span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve a luminosidade -->
                                     <span class="col-8 text-left text-gray-700">Luminosidade</span>
                                     <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->luminosity}}%</span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve a humidade -->
                                     <span class="col-8 text-left text-gray-700">Humidade no solo</span>
                                     <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->humidity}}%</span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve o vento -->
                                     <span class="col-8 text-left text-gray-700">Vento</span>
                                     <span class="col-4 mb-0 font-weight-bold text-gray-800 text-right">{{$plant->wind}} km/h</span>
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve estado da rega -->
                                     <span class="col-6 text-left text-gray-700">Rega</span>
                                     <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
                                         <a class="watering-btn {{($plant->watering) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->watering) ? "Ligada" : " Desligada"}}</a>
@@ -146,6 +156,7 @@
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve estado da luz -->
                                     <span class="col-6 text-left text-gray-700">Luz</span>
                                     <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
                                         <a class="light-btn {{($plant->light) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->light) ? "Ligada" : " Desligada"}}</a>
@@ -153,6 +164,7 @@
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve estado da janela -->
                                     <span class="col-6 text-left text-gray-700">Janela</span>
                                     <span class="col-6 mb-0 font-weight-bold text-right text-capitalize">
                                         <a class="window-btn {{($plant->window_state) ? "text-success" : " text-danger"}}" href="#" data-planta="{{$plant->id}}">{{($plant->window_state) ? "Aberta" : " Fechada"}}</a>
@@ -160,6 +172,7 @@
                                 </div>
                                 <hr class="sidebar-divider my-2">
                                 <div class="row">
+                                  <!-- escreve a hora -->
                                     <span class="col-4 text-left text-gray-700">Atualização</span>
                                     <span class="col-8 mb-0 font-weight-bold text-gray-800 text-right"> {{date_format($plant->created_at, "d/m/Y H:i")}} </span>
                                 </div>
@@ -204,12 +217,14 @@ $(document).ready(function() {
         var anchor = $(this);
         var info = this.text;
 
+        // cria um token
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{csrf_token()}}"
             }
         });
 
+        // altera o valor da rega, dependendo do estado anterior e atualiza na bd
         $.ajax({
             type: "put",
             url: "/plant/update-watering/"+anchor.data('planta'),
@@ -241,6 +256,7 @@ $(document).ready(function() {
             }
         });
 
+        // altera o valor da lampada, dependendo do estado anterior e atualiza na bd
         $.ajax({
             type: "put",
             url: "/plant/update-light/"+anchor.data('planta'),
@@ -272,6 +288,7 @@ $(document).ready(function() {
             }
         });
 
+        // altera o valor da janela, dependendo do estado anterior e atualiza na bd
         $.ajax({
             type: "put",
             url: "/plant/update-window/"+anchor.data('planta'),

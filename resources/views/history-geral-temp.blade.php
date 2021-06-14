@@ -30,6 +30,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive p-1">
+              <!-- cria a tabela -->
                 <table class="table table-bordered table-striped" id="table" width="100%">
                     <thead>
                         <tr>
@@ -47,6 +48,7 @@
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <!-- cria o grafico das ultimas 10 entradas -->
                     <h6 class="m-0 font-weight-bold text-success">Gráfico representativo da temperatura geral (últimos 10 registos)</h6>
                 </div>
                 <div class="card-body">
@@ -87,6 +89,7 @@
 <script src="{{asset('js/chart.js')}}"></script>
 <script>
     $(document).ready(function() {
+      // cria a tabela com a informação para mostrar
         var table = $('#table').DataTable({
             "language": {
                 "sEmptyTable": "Não foi encontrado nenhum registo",
@@ -120,6 +123,7 @@
             }
         });
 
+        // faz o GET a API, e recebe os valores para apresentar em cada linha da tabela
         $.ajax({
             type: "get",
             url: "{{ route('api.temp-geral') }}",
@@ -140,6 +144,7 @@
         });
     });
 
+    // desenha o gráfico com o estilo que queremos
     function draw_chart(data) {
         var ctx = document.getElementById("myAreaChart");
         var cData = data;

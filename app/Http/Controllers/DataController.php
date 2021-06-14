@@ -1,3 +1,5 @@
+<!-- Controller dos users de login -->
+
 <?php
 
 namespace App\Http\Controllers;
@@ -8,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class DataController extends Controller
 {
+    // descomentar linha na web.php, usage: my-garden.test/data
+    // função para criar users na bd
     function create_users()
     {
         $user = new User;

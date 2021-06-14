@@ -1,5 +1,7 @@
+<!-- Menu lateral -->
 <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
     <li>
+      <!-- Apresenta o logotipo com o nome -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-leaf"></i>
@@ -10,6 +12,7 @@
     <li>
         <hr class="sidebar-divider my-0">
     </li>
+    <!-- Route para a Dashboard -->
     <li class="nav-item {{Route::is('dashboard') ? 'active' : ''}}">
         <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -19,6 +22,7 @@
     <li>
         <hr class="sidebar-divider">
     </li>
+    <!-- Route para o histórico dos sensores gerais -->
     <li class="sidebar-heading">
         Histórico Geral
     </li>
@@ -37,9 +41,11 @@
     <li>
         <hr class="sidebar-divider">
     </li>
+    <!-- Histórico para cada equipamento específico -->
     <li class="sidebar-heading">
         Histórico Específico
     </li>
+    <!-- Routas para os sensores (caso os mesmos se encontrem válidas) -->
     <li class="nav-item @if (Route::is('history.hum') || Route::is('history.lum') || Route::is('history.temp') || Route::is('history.wind')) active @endif">
         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-screwdriver"></i>
@@ -54,7 +60,7 @@
             </div>
         </div>
     </li>
-
+    <!-- Routas para as culturas (caso as mesmas se encontrem válidas) -->
     <li class="nav-item @if (Route::is('history.alfaces') || Route::is('history.cenouras') || Route::is('history.tomates')) active @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-seedling"></i>

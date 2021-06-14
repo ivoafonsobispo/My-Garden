@@ -22,6 +22,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive p-1">
+              <!-- cria a tabela -->
                 <table class="table table-bordered table-striped" id="table" width="100%">
                     <thead>
                         <tr>
@@ -69,6 +70,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
+      // cria a tabela com a informação para mostrar
         var table = $('#table').DataTable({
             "language": {
                 "sEmptyTable": "Não foi encontrado nenhum registo",
@@ -102,6 +104,7 @@
             }
         });
 
+        // faz o GET a API, e recebe os valores para apresentar em cada linha da tabela
         $.ajax({
             type: "get",
             url: "{{ route('api.cenouras') }}",

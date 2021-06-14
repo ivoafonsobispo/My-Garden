@@ -1,3 +1,4 @@
+<!-- Página master onde vai ser colocada toda a informação -->
 <!DOCTYPE html>
 <html lang="pt" dir="ltr">
 

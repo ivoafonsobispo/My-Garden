@@ -1,3 +1,5 @@
+<!-- Controlador de tudo o que envolve históricos -->
+
 <?php
 
 namespace App\Http\Controllers;
@@ -12,7 +14,9 @@ use Illuminate\Support\Facades\DB;
 
 class HistoryController extends Controller
 {
-    // Funções provenientes das rotas "web.php"
+    /*
+    * Funções provenientes das rotas "web.php"
+    */
     public function history_general_temp()
     {
         return view('history-geral-temp');
@@ -58,7 +62,11 @@ class HistoryController extends Controller
         return view('history-tomates');
     }
 
-    // Funções provenientes das rotas "api.php"
+    /*
+    * Funções provenientes das rotas "api.php"
+    */
+
+    // função para apresentar o historico geral da temperatura
     public function history_general_temp_api()
     {
         $temperatures = DB::table('general_sensors')->select('temperature', 'created_at')->orderBy("created_at", "DESC")->get();
@@ -81,6 +89,7 @@ class HistoryController extends Controller
         return response()->json($all_data, 201);
     }
 
+    // função para apresentar o historico geral da humidade
     public function history_general_hum_api()
     {
         $humidities = DB::table('general_sensors')->select('humidity', 'created_at')->orderBy("created_at", "DESC")->get();
@@ -103,6 +112,7 @@ class HistoryController extends Controller
         return response()->json($all_data, 201);
     }
 
+    // função para apresentar o historico da humidade nas plantações
     public function history_hum_api()
     {
         $humidities = DB::table('plants')->select('humidity', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
@@ -112,6 +122,7 @@ class HistoryController extends Controller
         return response()->json($humidities, 201);
     }
 
+    // função para apresentar o historico da luminosidade nas plantações
     public function history_lum_api()
     {
         $luminosities = DB::table('plants')->select('luminosity', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
@@ -121,6 +132,7 @@ class HistoryController extends Controller
         return response()->json($luminosities, 201);
     }
 
+    // função para apresentar o historico da temperatura nas plantações
     public function history_temp_api()
     {
         $temperatures = DB::table('plants')->select('temperature', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
@@ -130,6 +142,7 @@ class HistoryController extends Controller
         return response()->json($temperatures, 201);
     }
 
+    // função para apresentar o historico do vento nas plantações
     public function history_wind_api()
     {
         $winds = DB::table('plants')->select('wind', 'name', 'created_at')->orderBy("created_at", "DESC")->get();
@@ -139,6 +152,7 @@ class HistoryController extends Controller
         return response()->json($winds, 201);
     }
 
+    // função para apresentar o historico das alfaces
     public function history_alfaces_api()
     {
         $alfaces = DB::table('plants')->where('name', 'alfaces')->orderBy("created_at", "DESC")->get();
@@ -150,6 +164,7 @@ class HistoryController extends Controller
         return response()->json($alfaces, 201);
     }
 
+    // função para apresentar o historico das cenuras
     public function history_cenouras_api()
     {
         $cenouras = DB::table('plants')->where('name', 'cenouras')->orderBy("created_at", "DESC")->get();
@@ -161,6 +176,7 @@ class HistoryController extends Controller
         return response()->json($cenouras, 201);
     }
 
+    // função para apresentar o historico dos tomates
     public function history_tomates_api()
     {
         $tomates = DB::table('plants')->where('name', 'tomates')->orderBy("created_at", "DESC")->get();
@@ -172,6 +188,7 @@ class HistoryController extends Controller
         return response()->json($tomates, 201);
     }
 
+    // função para apresentar o historico das entrandas
     public function history_user_entrance(User $user)
     {
         $user_log = Entrance::where("name", $user->name)->get();

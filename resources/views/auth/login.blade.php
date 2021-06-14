@@ -1,3 +1,4 @@
+<!-- Página de login e Autenticação -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -14,6 +15,7 @@
                 <div id="auth-form">
                     <h1 id="h1-auth">Log in.</h1>
                     <p id="p-auth">O seu lugar online para tratar do seu jardim.</p>
+                    <!-- Validação do Username -->
                     <form class="mt-4 needs-validation" action="{{route('authenticate')}}" method="post" novalidate>
                         @csrf
                         <div class="form-group mb-3">
@@ -22,12 +24,14 @@
                                 Insira um <i>username</i>, por favor.
                             </div>
                         </div>
+                        <!-- Validação da Palavra-Passe -->
                         <div class="form-group mb-3">
                             <input id="password" class="form-control" type="password" name="password" placeholder="Password..." required>
                             <div class="invalid-feedback">
                                 Insira uma <i>password</i>, por favor.
                             </div>
                         </div>
+                        <!-- Caso algo esteja incorreto apresenta mensagem de erro -->
                         @error('failed')
                             <div class="mt-0 mb-0 error-div text-center">
                                 <small class="text-danger">
@@ -47,6 +51,7 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript">
+    // Faz as validações necessárias
         $(document).ready(function() {
             $(".needs-validation").submit(function(event) {
                 if (this.checkValidity() === false) {

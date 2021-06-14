@@ -9,6 +9,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h4 mb-0 text-gray-800">Histórico das entradas</h1>
         <div>
+          <!-- permite observar a fotografia da ultima pessoa a entrar na server room -->
             <a href="#" onclick="window.open('{{url('/py/face.jpg')}}', '', 'width=620,height=450,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes'); return false;" class="btn btn-success btn-icon-split btn-sm" title="Informações">
                 <span class="icon text-white-50">
                     <i class="fas fa-camera"></i>
@@ -26,6 +27,7 @@
     <!-- Approach -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+          <!-- apresenta o historio da pessoa que tem o login  -->
             <h6 class="m-0 font-weight-bold text-success">Listagem do histórico das entradas do utilizador {{Auth::user()->name}}</h6>
         </div>
         <div class="card-body">
@@ -39,6 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                      <!-- para cada linha, apresenta os valores obtidos da API -->
                         @foreach ($user_log as $log)
                         <tr>
                             <td>{{$log->id}}</td>
